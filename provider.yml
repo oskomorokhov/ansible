@@ -1,0 +1,6 @@
+---
+testvar: bla
+provider:
+ username: "{{username}}"
+ password: "{{password}}"
+ host: "{{inventory_hostname}}"

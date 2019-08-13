@@ -1,0 +1,2 @@
+---
+switches: {'sw1':{'hostname':'lab-sw1','ip':'1.1.1.1','model':3560,'role':'access'},'sw2':{'hostname':'lab-sw2','ip':'1.1.1.2','model':2960,'role':'access'},'sw3':{'hostname':'lab-sw3','ip':'1.1.1.3','model':6509,'role':'core'}}

@@ -1,0 +1,33 @@
+---
+- name: configure basic features shared across all devices
+  connection: local
+  gather_facts: False
+  hosts: switches,routers
+  vars_files:
+  - "../creds.yml"
+  - "site-details.yml"
+
+  tasks:
+
+  - name: configure provider
+    set_fact:
+     provider:
+      username: "{{username}}"
+      password: "{{password}}"
+      host: "{{inventory_hostname}}"
+
+  - name: import base config
+    ios_config:
+     provider: "{{provider}}"
+     src: "../templates/sw-base.cfg"
+    when: (inventory_hostname in groups['switches'])
+
+  - name: add management loopbacks
+    ios_config:
+     provider: "{{provider}}"
+     lines:
+     - ip address {{item.ip}} {{item.mask}} 
+     parents:
+     - interface {{item.lo}}
+    with_items: "{{loopbacks}}"
+    when: (item.sw == inventory_hostname)                                            
