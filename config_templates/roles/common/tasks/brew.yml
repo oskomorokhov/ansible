@@ -1,0 +1,5 @@
+- name: Include base config, configure SNMP and hostname from template
+  template:
+    src: common.j2
+    dest: "outputs/{{item.value.hostname}}.cfg"
+  with_dict: "{{switches}}"

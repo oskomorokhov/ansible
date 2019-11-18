@@ -1,9 +1,0 @@
----
-
- snmp:
-  contact: Admin
-  location: SJC
-  ro:
-   - publicro
-  rw:
-   - privaterw

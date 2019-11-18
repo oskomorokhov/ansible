@@ -1,7 +1,11 @@
-# Ansible LAB stuff
+# Ansible
 
-* run inside williamyeh/ansible:ubuntu14.04-onbuild
+## Make config changes to existing devices
 
-## this *stuff* is for educational purposes **only** and has no value
+## Prepare site-specific device configs
 
-> huh, there's a blockquote...nice chance to learn some MD at the same time!
+## Automate web-server deployment
+
+### TBD: actual readme :-)
+
+

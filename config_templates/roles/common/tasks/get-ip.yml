@@ -1,0 +1,13 @@
+---
+- local_action:
+    module: uri
+    url: http://checkip.amazonaws.com/
+    return_content: yes
+  register: ip_lookup
+- set_fact:
+    public_ip: "{{ ip_lookup.content | regex_replace('\n','') }}"
+- debug: var=public_ip
+
+- set_fact:
+    local_ip: "{{ ansible_env['SSH_CLIENT'].split() | first }}"
+- debug: var=local_ip

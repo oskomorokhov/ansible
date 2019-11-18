@@ -1,5 +1,6 @@
 ---
-testvar: bla
+username: admin
+password: cisco
 provider:
  username: "{{username}}"
  password: "{{password}}"

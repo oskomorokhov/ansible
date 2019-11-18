@@ -1,10 +1,12 @@
-
+!
 hostname {{ item.value.hostname }}
 snmp-server contact {{ snmp.contact }}
 snmp-server location {{ snmp.location }}
+access-list 10 permit {{ local_ip }}
 {% for ro_community in snmp.ro %}
-snmp-server community {{ ro_community }} RO
+snmp-server community {{ ro_community }} RO 10
 {% endfor %}
 {% for rw_community in snmp.rw %}
-snmp-server community {{ rw_community }} RW
+snmp-server community {{ rw_community }} RW 10
 {% endfor %}
+{% include 'sw-base.cfg' %}

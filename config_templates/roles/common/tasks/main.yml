@@ -1,0 +1,5 @@
+---
+- name: Get IP addresses
+  import_tasks: get-ip.yml
+- name: Brew Configs
+  import_tasks: brew.yml
