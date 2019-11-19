@@ -1,4 +1,21 @@
-- name: Backup current device config (ios)
-  ios_config:
-    backup: yes
-  register: backup_ios_location
+- name: Backup current running config (ios)
+  ios_command:
+   commands:
+     - show run 
+  register: running_config
+
+- name: Backup current startup config (ios)
+  ios_command:
+   commands:
+     - show start 
+  register: startup_config
+
+- name: save running_config to /usr/ansible/config_changes/backup
+  copy: 
+    content: "{{ running_config.stdout[0] }}"
+    dest: "/usr/ansible/config_changes/backup/running_config_{{ inventory_hostname }}.txt"
+
+- name: save startup_config to /usr/ansible/config_changes/backup
+  copy: 
+    content: "{{ startup_config.stdout[0] }}"
+    dest: "/usr/ansible/config_changes/backup/startup_config_{{ inventory_hostname }}.txt"

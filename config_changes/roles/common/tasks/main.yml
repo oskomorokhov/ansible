@@ -1,9 +1,5 @@
 ---
+- include_tasks: facts.yml
 - include_tasks: backup.yml
 - include_tasks: base.yml
-- include_tasks: mgmt.yml
-- include_tasks: dns.yml
-- include_tasks: ntp.yml
-- include_tasks: logging.yml
-- include_tasks: tacacs_radius.yml
 - include_tasks: save_config.yml

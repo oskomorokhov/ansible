@@ -1,0 +1,32 @@
+!
+ip cef
+!
+service password-encryption
+!
+no ip http server
+!
+banner motd ^C === LAB environment === ^C
+!
+line vty 0 4
+ transport input ssh
+!
+hostname {{ inventory_hostname }}
+!
+ip name-server {{ dns1 }}
+ip name-server {{ dns2 }}
+!
+interface {{ loopbacks[inventory_hostname]['lo'] }}
+ ip address {{ loopbacks[inventory_hostname]['ip'] }} {{ loopbacks[inventory_hostname]['mask'] }} 
+!
+logging trap notifications
+logging origin-id hostname
+logging facility syslog
+logging source-interface {{ loopbacks[inventory_hostname]['lo'] }}
+!
+clock timezone {{ timezone }}
+ntp source {{ loopbacks[inventory_hostname]['lo'] }}
+ntp server {{ ntp1 }}
+ntp server {{ ntp2 }}  
+!
+tacacs-server key 7 {{ vault_tacacs_secret }}
+!

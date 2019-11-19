@@ -1,0 +1,9 @@
+---
+- name: Gather facts (ops)
+  ios_facts:
+    gather_subset: min
+  when: ansible_network_os == 'ios'
+
+- name: Display some facts
+  debug:
+    msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"

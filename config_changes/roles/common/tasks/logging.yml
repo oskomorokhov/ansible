@@ -1,7 +1,0 @@
-- name: configure logging
-  ios_config:
-    lines:
-      - logging trap notifications
-      - logging origin-id hostname
-      - logging facility syslog
-      - logging source-interface Loopback1
