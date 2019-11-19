@@ -1,18 +1,18 @@
 [access_switches]
-as1 ansible_host=192.168.138.103
-as2 ansible_host=192.168.138.104
-as3 ansible_host=192.168.138.105
+as1 ansible_host=192.168.1.99
+as2 ansible_host=192.168.1.100
 
 [core_switches]
-cr1 ansible_host=192.168.138.100
+cr1 ansible_host=192.168.1.95
+cr2 ansible_host=192.168.1.98
 
 [switches:children]
 access_switches
 core_switches
 
 [routers]
-r1 ansible_host=192.168.138.201
-r2 ansible_host=192.168.138.202
+r1 ansible_host=192.168.1.97
+r2 ansible_host=192.168.1.96
 
 [network:children]
 switches

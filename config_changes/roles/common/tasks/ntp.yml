@@ -1,0 +1,9 @@
+- name: configure NTP
+  ios_config:
+    lines:
+      - clock timezone {{ timezone }}
+      - ntp source {{item.lo}}
+      - ntp server {{ ntp1 }}
+      - ntp server {{ ntp2 }}   
+  with_items: "{{loopbacks}}"
+  when: (item.host == inventory_hostname) 

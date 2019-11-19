@@ -1,0 +1,4 @@
+- name: Backup current device config (ios)
+  ios_config:
+    backup: yes
+  register: backup_ios_location

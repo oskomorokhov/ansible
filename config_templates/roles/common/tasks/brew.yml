@@ -1,3 +1,4 @@
+---
 - name: Include base config, configure SNMP and hostname from template
   template:
     src: common.j2

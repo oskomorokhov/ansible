@@ -1,5 +1,13 @@
+---
 loopbacks:
- - {sw: 192.168.138.100, lo: Loopback100, ip: 1.1.1.1, mask: 255.255.255.255}
- - {sw: 192.168.138.103, lo: Loopback100, ip: 1.1.1.3, mask: 255.255.255.255}
- - {sw: 192.168.138.104, lo: Loopback100, ip: 1.1.1.4, mask: 255.255.255.255}
- - {sw: 192.168.138.105, lo: Loopback100, ip: 1.1.1.5, mask: 255.255.255.255}
+ - {host: cr1, lo: Loopback100, ip: 1.1.1.1, mask: 255.255.255.255}
+ - {host: cr2, lo: Loopback100, ip: 1.1.1.2, mask: 255.255.255.255}
+ - {host: as1, lo: Loopback100, ip: 1.1.1.3, mask: 255.255.255.255}
+ - {host: as2, lo: Loopback100, ip: 1.1.1.4, mask: 255.255.255.255}
+ - {host: r1, lo: Loopback100, ip: 1.1.1.3, mask: 255.255.255.255}
+ - {host: r2, lo: Loopback100, ip: 1.1.1.4, mask: 255.255.255.255}
+dns: "8.8.8.8 8.8.4.4"
+ntp1: "0.pool.ntp.org"
+ntp2: "1.pool.ntp.org"
+timezone: "PST -8 0"
+tacacs_key: "tacacs-secret"

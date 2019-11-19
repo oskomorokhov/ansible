@@ -1,7 +1,0 @@
----
-username: admin
-password: cisco
-provider:
- username: "{{username}}"
- password: "{{password}}"
- host: "{{inventory_hostname}}"

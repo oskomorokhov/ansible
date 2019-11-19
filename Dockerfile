@@ -33,4 +33,4 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 #EXPOSE 22
 
 # Run SSHD and do not detach/demonize
-CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT service ssh restart && bash

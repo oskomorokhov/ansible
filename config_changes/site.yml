@@ -1,2 +1,2 @@
 - import_playbook: lan.yml
-- import_playbook: dmz.yml
+# - import_playbook: dmz.yml

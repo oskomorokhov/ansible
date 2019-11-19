@@ -3,12 +3,8 @@ version: '3'
 services:
  ansible:
   build: ./
-  cap_add:
-    - SYS_PTRACE
   container_name: ansible
-  hostname: ubuntu
-  extra_hosts:
-   - "ubuntu:127.0.1.1"
+  hostname: ansible
   volumes:
    - ./config_changes:/usr/ansible/config_changes
    - ./config_templates:/usr/ansible/config_templates

@@ -1,0 +1,16 @@
+---
+- name: install vim
+  apt:
+    name: vim
+    state: present
+  register: vim_install
+- name: install net-tools
+  apt:
+    name: net-tools
+    state: present
+  register: net-tools_install
+- name: install vim
+  apt:
+    name: iputils-ping
+    state: present
+  register: ping_install

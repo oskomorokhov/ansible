@@ -1,23 +1,9 @@
 ---
-- name: configure provider
-    set_fact:
-     provider:
-      username: "{{username}}"
-      password: "{{password}}"
-      host: "{{inventory_hostname}}"
-
-- name: import base config
-  ios_config:
-    provider: "{{provider}}"
-    src: "../templates/sw-base.cfg"
-  when: (inventory_hostname in groups['switches'])
-
-- name: add management loopbacks
-  ios_config:
-    provider: "{{provider}}"
-    lines:
-    - ip address {{item.ip}} {{item.mask}} 
-    parents:
-    - interface {{item.lo}}
-  with_items: "{{loopbacks}}"
-  when: (item.sw == inventory_hostname)                
+- include_tasks: backup.yml
+- include_tasks: base.yml
+- include_tasks: mgmt.yml
+- include_tasks: dns.yml
+- include_tasks: ntp.yml
+- include_tasks: logging.yml
+- include_tasks: tacacs_radius.yml
+- include_tasks: save_config.yml

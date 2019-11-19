@@ -1,0 +1,4 @@
+---
+wwwroot: /usr/share/nginx/html/
+nginx_config: /etc/nginx/nginx.conf
+dirs: {dir1: /usr/share/nginx/html/new_log_dir1, dir2: /usr/share/nginx/html/new_log_dir2, dir3: /usr/share/nginx/html/new_log_dir3}

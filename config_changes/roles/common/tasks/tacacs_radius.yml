@@ -1,0 +1,3 @@
+- name: configure tacacs+
+  ios_config:
+    lines: tacacs-server key {{ tacacs_key }}

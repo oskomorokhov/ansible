@@ -1,0 +1,108 @@
+---
+- name: install nginx
+  apt:
+    name: nginx
+    state: present
+  register: nginx_install
+
+- name: create dirs
+  file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: 0775
+    recurse: yes
+  when: nginx_install is success
+  with_dict: "{{dirs}}"
+  register: create_dirs
+  tags: create_dirs
+
+- name: generate files with dummy logs
+  script: generate_files.py
+  args:
+    executable: python3
+  when: create_dirs is success
+  register: generate_files
+
+- name:  sort & copy all but last 3 log files
+  shell: 
+    cmd: | 
+      cp `head -n -3 | ls -1p | grep -v /` {{dirs.dir2}}
+  args:
+    chdir: "{{dirs.dir1}}"
+  tags: copy_1
+  when: generate_files is success
+
+- name: sort & copy last 3 log files
+  shell:
+    cmd: |
+      cp `ls -1p | grep -v / | tail -3` {{dirs.dir3}}
+  args:
+    chdir: "{{dirs.dir1}}"
+  when: generate_files is success
+  tags: copy_2
+
+- name: create index.html (actually just delete it)
+  file:
+    path: "{{wwwroot}}/index.html"
+    state: absent
+  when: nginx_install is success
+
+- name: modify ngnix config (autoindex will do all the job for us)
+  blockinfile:
+    dest: "{{nginx_config}}"
+    insertafter: "^http \\{"
+    block: |
+      autoindex on;
+      server {
+      location / {
+      root /usr/share/nginx/html/;
+      default_type text/plain;
+      }
+      }
+  when: nginx_install is success
+  register: nginx_conf
+  tags: nginx
+
+- name: comment out default nginx content/mime type
+  lineinfile:
+    dest: "{{nginx_config}}"
+    regexp: '(default_type application/octet-stream;)'
+    line: '#\1'
+    backrefs: yes
+  when: nginx_install is success
+  register: nginx_mime
+  tags: nginx
+
+- name: comment out include site-enabled
+  lineinfile:
+    dest: "{{nginx_config}}"
+    regexp: '(include /etc/nginx/sites-enabled/\*;)'
+    line: '#\1'
+    backrefs: yes
+  when: nginx_install is success
+  register: nginx_include
+  tags: nginx
+
+- name: Copy README.html file into wwwroot
+  copy:
+    src: README.html
+    dest: "{{wwwroot}}"
+    register: cp_readme
+  tags: cp_readme
+  when: nginx_install is success
+
+- name: final nginx service stop
+  service:
+    name: nginx
+    state: stopped
+  when: (nginx_install is success and nginx_conf is success and nginx_mime is success and nginx_include is success)
+  register: nginx_stop
+  tags: nginx
+
+- name: final nginx service start
+  service:
+    name: nginx
+    state: started
+  when: (nginx_stop is success)
+  register: nginx_start
+  tags: nginx

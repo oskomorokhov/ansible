@@ -1,0 +1,3 @@
+---
+- name: Install and configure nginx
+  import_tasks: nginx.yml

@@ -1,0 +1,3 @@
+- name: import base config
+  ios_config:
+    src: "../templates/sw-base.cfg"
